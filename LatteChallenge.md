@@ -22,13 +22,20 @@
 다른 학교 방명록에 방문해 친한 친구의 안부 묻기
 등록된 학교의 동창생 중 실시간 접속자 알려주는 서비스,미니홈피 스타일의 커뮤니티 서비스 제공
 - 고객: 같은 학교 재학생
+
 <img src="https://github.com/zel0rd/relay_02/blob/master/images/%EB%8B%A4%EB%AA%A8%EC%9E%84.JPG" width="600px" height="450px" ></img>
+
 ### 4. 삐삐
 - 삐삐 : 무선호출기 무선통신기기, 송신은 안되고 수신만 가능한 단방향 통신기기, 한 줄에 20자 정도의 텍스트를 표기할 수 있고, 문자와 수진자 번호를 전송하는 방식
+
 <img src="https://github.com/zel0rd/relay_02/blob/master/images/%EC%82%90%EC%82%90.jpeg" width="600px" height="450px" ></img>
+
 ### 5. 라이코스 포털사이트(검색 연관도 AI 맞춤서비스?)
+
 <img src="https://t1.daumcdn.net/cfile/tistory/2256DF475922E19A0D" width="600px" height="450px"></img>
+
 ### 6. 라이코스 무료홈페이지 기능(간편한 생성 및 무료서비스)
+
 - 라이코스 무료 홈페이지 기능: 전체적으로 무난하고 무료여서 사용하셨던 서비스. 관리가 단순하지 않았으나 무료이고 생성 자체가 까다롭지 않았음.
 
 ### 7. 천리안 (친구들과의 단체 채팅, 비싼 통신요금)
@@ -54,3 +61,4 @@
 - 서비스명 : 검색 엔진 및 포털 사이트
 - 주요기능 : 인터넷에 최적화된 우수한 성능의 검색엔진을 제공하는 포털사이트로 뉴스, 음악, 여행, 구인구직, 전자상거래, 게임 등의 다양한 분야를 지원함
 - 고객타겟 : 도서관 이용자, 항공권을 예약하려는 사람, 구직자 등
+<img src="https://github.com/zel0rd/relay_02/blob/master/images/%EB%9D%BC%EC%9D%B4%EC%BD%94%EC%8A%A42.png" width="600px" height="450px" ></img>
