@@ -58,6 +58,8 @@
 - 개발 회사 : 나우콤
 - 기능 : 게시판 작성들을 통한 정보 공유, 취미가 맞는 사람들 끼리 동호회 생성
 - 고객 타겟 : 20대
+
+
 <img src="https://github.com/zel0rd/relay_02/blob/master/images/%EB%82%98%EC%9A%B0%EB%88%84%EB%A6%AC1.png" ></img>
 <img src="https://github.com/zel0rd/relay_02/blob/master/images/%EB%82%98%EC%9A%B0%EB%88%84%EB%A6%AC2.png" width="600px" height="450px" ></img>
 
