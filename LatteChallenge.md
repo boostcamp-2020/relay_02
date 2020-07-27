@@ -13,7 +13,7 @@
 - 좋았던 점 : 취미가 같거나. 이성을 만나고 싶은 사람들이 사람을 쉽게 만날 수 있었음.
 - 아쉬웠던 점 : 지금처럼 화상기능등이 없어서 얼굴을 모르고 실제로 만나기전에 글로만 만나야 함
 
-<img src="https://github.com/zel0rd/relay_02/blob/master/images/%EC%8B%AC%EB%A7%88%EB%8B%88.jpg" width="600px" height="450px" ></img>
+<img src="https://github.com/zel0rd/relay_02/blob/master/images/%EC%A7%81%EB%94%A9%EB%81%BC%EB%A6%AC.png" width="600px" height="450px" ></img>
 
 ### 3. 다모임 재학생중심의 커뮤니티
 - 서비스명: 다모임(DAMOIM)
