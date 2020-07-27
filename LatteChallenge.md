@@ -8,13 +8,13 @@
 - 어떤 고객 타겟 : 졸업 후에 동창을 찾으려는 사람들을 타겟으로 함
 <img src="https://github.com/zel0rd/relay_02/blob/master/images/%EC%95%84%EC%9D%B4%EB%9F%AC%EB%B8%8C%EC%8A%A4%EC%BF%A8.png" width="600px" height="450px" ></img>
 <img src="https://github.com/zel0rd/relay_02/blob/master/images/%EC%95%84%EC%9D%B4%EB%9F%AC%EB%B8%8C%EC%8A%A4%EC%BF%A82.png" width="600px" height="450px" ></img>
-### 2. 천리안 하두리? 버디버디?
-
-- 하두리 : 온라인 화상 채팅
-- 스카이러브 : 웹 채팅 사이트
+### 2. 스카이 러브
+- 주요 기능 : 웹 채팅 사이트
 - 좋았던 점 : 취미가 같거나. 이성을 만나고 싶은 사람들이 사람을 쉽게 만날 수 있었음.
 - 아쉬웠던 점 : 지금처럼 화상기능등이 없어서 얼굴을 모르고 실제로 만나기전에 글로만 만나야 함
+
 <img src="https://github.com/zel0rd/relay_02/blob/master/images/%EC%8B%AC%EB%A7%88%EB%8B%88.jpg" width="600px" height="450px" ></img>
+
 ### 3. 다모임 재학생중심의 커뮤니티
 - 서비스명: 다모임(DAMOIM)
 - 주요 기능: 재학생 중심 동창 찾기 서비스
