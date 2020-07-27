@@ -32,9 +32,10 @@
 
 ### 5. 라이코스 포털사이트(검색 연관도 AI 맞춤서비스?)
 
-<img src="https://t1.daumcdn.net/cfile/tistory/2256DF475922E19A0D" width="600px" height="450px"></img>
 
 ### 6. 라이코스 무료홈페이지 기능(간편한 생성 및 무료서비스)
+
+<img src="https://t1.daumcdn.net/cfile/tistory/2256DF475922E19A0D" width="600px" height="450px"></img>
 
 - 라이코스 무료 홈페이지 기능: 전체적으로 무난하고 무료여서 사용하셨던 서비스. 관리가 단순하지 않았으나 무료이고 생성 자체가 까다롭지 않았음.
 
