@@ -94,6 +94,5 @@
 
 
 # 가이드 UI
-![Uploading image.png…]()
-
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3da49968-d725-435c-801a-18c8c3231245/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3da49968-d725-435c-801a-18c8c3231245/Untitled.png)
 
