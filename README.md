@@ -13,7 +13,7 @@
 
 **[ 기반 기능 ]**
 
-[0. 회원 정보 DB 생성](https://www.notion.so/0-DB-0cc9c2d3391d4920a87ec4f2b6b9d3ac)
+[0. 회원 정보 DB 생성](https://github.com/boostcamp-2020/relay_02/blob/master/%ED%9A%8C%EC%9B%90%EC%A0%95%EB%B3%B4.md)
 
 1. 로그인 기능을 구현한다.
 2. 실시간 채팅을 구현한다.
