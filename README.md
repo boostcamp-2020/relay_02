@@ -9,7 +9,7 @@
 
 ## 스카이 러브
 
-# 기능 A
+## 기능 A
 
 **[ 기반 기능 ]**
 
@@ -39,7 +39,7 @@
 채팅 기능을 위한 서버 - [socket.io](http://socket.io/)
 채팅 내용을 분석하기 위한 한글 형태소 분석기 - 은전 한닢
 
-# 기능 B
+## 기능 B
 
 **[기반 기능]**
 
@@ -80,7 +80,7 @@
 - Face detection 관련 자료는 많으니 다양하게 이용하시면 됩니다.
 - 동물상 분석 관련: [https://www.youtube.com/watch?v=OI3fZJHQF8Y](https://www.youtube.com/watch?v=OI3fZJHQF8Y&t=307s)
 
-# 기능 C
+## 기능 C
 
 [**회원 정보 기반 이성 추천 기능]**
 
@@ -94,5 +94,5 @@
 
 
 # 가이드 UI
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3da49968-d725-435c-801a-18c8c3231245/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3da49968-d725-435c-801a-18c8c3231245/Untitled.png)
+![function](https://user-images.githubusercontent.com/49153756/89023391-77e36800-d35e-11ea-9fe1-ca3629989ea8.png)
 
