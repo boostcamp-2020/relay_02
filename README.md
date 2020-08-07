@@ -21,15 +21,16 @@ npm run dev # start dev-server
 npm start # start server
 ```
 
-## DB
+## 1. DB
 DB 확인용 스크립트
 ```
 node db/dbtest.js # 반드시 위치여야합니다!
 ```
+
 ### Wiki: [Link로 이동하기](https://github.com/boostcamp-2020/relay_02/wiki/DB-%EA%B0%80%EC%9D%B4%EB%93%9C)
 
 
-## Chat App
+## 2. Chat App
 
 |Filename|Desc|Docs|
 |--|--|--|
@@ -38,7 +39,7 @@ node db/dbtest.js # 반드시 위치여야합니다!
 |`index.html` `chat.html` | 웹사이트 파일 |https://github.com/boostcamp-2020/relay_02/issues/8|
 
 
-## 기능 A. 대화 패턴 긍정도 분석
+## 3. 기능 A. 대화 패턴 긍정도 분석
 > 링크: https://github.com/boostcamp-2020/relay_02/tree/master/NLP
 
 ### 설치 및 실행
@@ -87,10 +88,10 @@ jupyter notebook #jupyter 속에서 NLP/NLP.ipynb 파일 실행
 이 때, 채팅 내용은 학습이 된 모델을 통해 유저의 대화 패턴 긍정도와 부정도를 파악한다. 언행 점수는 DB에 저장되고, 추후 점수가 비슷한 사용자들끼리 매칭 서비스에 이용될 것이다.
 
 
-## 기능 B.
+## 4. 기능 B.
 
 
-## 기능 C.
+## 5. 기능 C.
 
 
 
