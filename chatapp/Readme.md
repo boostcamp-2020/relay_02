@@ -25,7 +25,9 @@ npm start # start server
 
 |Filename|Desc|Docs|
 |--|--|--|
-|server.js|서버 파일| https://github.com/boostcamp-2020/relay_02/issues/6|
+|`server.js`|서버 파일| https://github.com/boostcamp-2020/relay_02/issues/6|
+|`main.js`|채팅 클라이언트 파일|https://github.com/boostcamp-2020/relay_02/issues/7|
+|`index.html` `chat.html` | 웹사이트 파일 |https://github.com/boostcamp-2020/relay_02/issues/8|
 
 
 
