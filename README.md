@@ -17,6 +17,7 @@ LINK: http://49.50.162.241:3000
 ## 설치 및 실행
 
 ```bash
+cd chatapp
 npm install # express moment socket.io sqlite3
 
 npm run dev # start dev-server
@@ -26,6 +27,7 @@ npm start # start server
 ## 1. DB
 DB 확인용 스크립트
 ```
+cd chatapp
 node db/dbtest.js # 반드시 위치여야합니다!
 ```
 
@@ -33,6 +35,8 @@ node db/dbtest.js # 반드시 위치여야합니다!
 
 
 ## 2. Chat App
+
+### Documentation
 
 |Filename|Desc|Docs|
 |--|--|--|
