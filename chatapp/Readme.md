@@ -13,7 +13,11 @@ npm run dev # start dev-server
 npm start # start server
 ```
 
-## 주요 파일
+## 주요 파일 및 설명
+
+|Filename|Desc|Docs|
+|--|--|--|
+|server.js|서버 파일| https://github.com/boostcamp-2020/relay_02/issues/6|
 
 
 
