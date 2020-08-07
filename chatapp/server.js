@@ -10,7 +10,11 @@ const {
   getRoomUsers,
   getCurrentUserByName
 } = require('./utils/users');
+const { User, ChattingLog, closeDatabase } = require('./db/chat');
 
+// DB ORM Init
+const logger = new ChattingLog();
+const UserDB = new User()
 
 const MenQueue = []
 const WomenQueue = []
@@ -23,6 +27,7 @@ const io = socketio(server);
 io.eio.pingTimeout = 120000; // 2 minutes
 io.eio.pingInterval = 5000;  // 5 seconds
 
+
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -32,6 +37,7 @@ const botName = 'ChatCord Bot';
 io.on('connection', socket => {
   socket.on('joinRoom', ({ username, gender }) => {
     const user = userJoin(socket.id, username, gender, 'LOBY' );   
+    UserDB.insert(gender, username);
     console.log(user)
     socket.join(user.room);
     
@@ -122,8 +128,8 @@ io.on('connection', socket => {
   // Listen for chatMessage
   socket.on('chatMessage', msg => {
     const user = getCurrentUser(socket.id);
-    console.log(user.username, msg);
-    //* 여기에 DB로 저장하는 로직이 필요
+    // console.log(user.username, msg);
+    logger.insert(user.username, msg); //* DB로 저장하는 로직이 필요
     io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 

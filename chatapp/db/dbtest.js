@@ -6,8 +6,8 @@ const main = async () => {
     // user.insert('M', 'seokjung');
     // user.insert('F', 'sohyeon');
 
-    // const users = await user.findAll();
-    // console.log(users);
+    const users = await user.findAll();
+    console.log(users);
 
     const log = new ChattingLog();
     // log.insert(1, 'hi sohyeon nice to meet you!');

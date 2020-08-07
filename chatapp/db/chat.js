@@ -13,7 +13,7 @@ const getDate = () => {
 }
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('chat.db');
+const db = new sqlite3.Database('../chat.db');
 
 const closeDatabase = () => {
     db.close();
@@ -92,10 +92,6 @@ const ChattingLog = class {
         stmt.finalize();
     }
 }
-
-
-
-
 
 
 // const main = async () => {
