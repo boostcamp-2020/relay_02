@@ -38,6 +38,66 @@ cd chatapp
 node db/dbtest.js # 반드시 위치여야합니다!
 ```
 
+### 기술 스택
+- 기본적인 환경은 채팅 서버와 동일 (채팅 서버의 package.json 참고)
+- db: SQLIite3 (설치 방법: npm install sqlite3)
+- db 파일명: chat.db
+
+### 스키마
+
+![image](https://user-images.githubusercontent.com/43347250/89639209-1ab05f00-d8e8-11ea-9005-5d8628255819.png)
+
+#### TABLE 01 : log
+Column (log_id(pk), timestamp, user_id, message)
+
+[참고사항]
+- log.user_id는 user.nickname을 참조하는 외래키입니다.
+
+❗️1주차 기준 제약 조건을 실제 db에 제약조건이 구현되지는 않은 상태입니다.
+필요에 따라 구현을 하셔도 무방합니다.
+
+❗️1주차 기준 둘을 연동해서 사용하지 않기 때문에, log의 user_id에 채팅에 들어올 때 입력한 유저명이 담기게 설정되어 있습니다.
+
+
+#### TABLE 02 : user
+Column (user_id(pk), gender, nickname)
+
+[참고사항]
+- 1주차 기준 프로그램에서 조회하고 있지 않습니다. 추후 중복 유저 로그인 방지나 유저를 특정해야하거나, 유저의 성별 등을 조회할 때 사용하실 수 있습니다. 
+- nickname은 실제 채팅에 접속할 때 유저가 입력한 유저명입니다. user_id는 Primary Key로 auto increment 되는 값이기 때문에 구분하여 사용 부탁 드립니다.
+
+
+### Chat 모듈 구성
+
+#### 모듈 로드 및 사용
+```javascript
+const PATH = 'your path';
+const { User, ChattingLog, closeDatabase } = require(`${PATH}/chat`);
+
+const user = new User();
+const logger = new ChattingLog();
+
+/* ... */
+closeDatabase();    // 필수
+```
+
+#### User 클래스 함수
+1. `insert(gender, nickname)` : 성별과 닉네임을 받아 `user` 테이블에 저장
+2. `findByUserId(user_id)` : `PK`로 유저의 `row`를 찾아 반환
+3. `findAll()` : 유저 테이블의 모든 행을 반환
+4. `update(user_id, gender, nickname)` : `user_id`에 해당하는 `row`의 `gender` 값과 `nickname` 값을 전달인자의 값으로 대체
+6. `deleteById(user_id)` : `user_id`에 해당하는 `row`를 삭제
+
+
+#### ChattingLog 클래스 함수
+1. `insert(user_id, message)` : `user_id`와 `message`를 받아 `log` 테이블에 저장 
+  - => `user` 현재는 테이블과의 관계가 딱히 없기 때문에 일부러 `user_id` 대신 `nickname`을 활용해 저장하였다. `sqlite3`은 테이블 생성시 선언한 컬럼의 타입을 체크하지 않는다.
+
+2. `findByUserId(user_id)` : `user_id`에 해당하는 채팅 로그를 전부 찾아서 반환 
+3. `findAll()` : 채팅 로그 테이블의 모든 행을 반환
+4. `update(log_id, user_id, message)` : `log_id`에 해당하는 `row`의 `user_id` 값과 `message` 값을 전달인자의 값으로 대체
+5. `deleteById(log_id)` : `log_id`에 해당하는 `row`를 삭제
+
 ### Wiki: [Link로 이동하기](https://github.com/boostcamp-2020/relay_02/wiki/DB-%EA%B0%80%EC%9D%B4%EB%93%9C)
 
 
