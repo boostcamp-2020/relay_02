@@ -2,16 +2,16 @@
 
 ## dataset
 
-- [네이버 영화 리뷰 데이터]([https://github.com/e9t/nsmc/](https://github.com/e9t/nsmc/))
-- 
+[네이버 영화 리뷰 데이터]([https://github.com/e9t/nsmc/](https://github.com/e9t/nsmc/))
+
 ![](https://lh4.googleusercontent.com/MlW1Tt2PLMIBDRTSEkRoWS1jgJwrvdzHSxD6Um7n9eF3eTtobmv2hdds0YjhH0EhATsTYrnufSYrdtZFTta4mn0uazNdu8bPv1kB4u4iWNI3q9KB5R_FvdBLRDZuY7EYv2s3t-vM)
 
 
-- 이 데이터셋은 네이버 영화의 리뷰 중 영화당 100개의 리뷰를 모아 총 200,000개의 리뷰(train: 15만, test: 5만)로 이루어져있고,
--1~10점까지의 평점 중에서 중립적인 평점(5~8점)은 제외하고 1~4점을 긍정으로, 9~10점을 부정으로 동일한 비율로 데이터에 포함되었다.
+- 이 데이터셋은 네이버 영화의 리뷰 중 영화당 100개의 리뷰를 모아 총 200,000개의 리뷰(train: 15만, test: 5만)로 이루어져있다.
+- 1~10점까지의 평점 중에서 중립적인 평점(5~8점)은 제외하고 1~4점을 긍정으로, 9~10점을 부정으로 동일한 비율로 데이터에 포함되었다.
 
-- 데이터는 다음과 같이 id, document, label 세 개의 열로 이루어져있습니다.
-id는 리뷰의 고유한 key 값이고, document는 리뷰의 내용, label은 긍정(0)인지 부정(1)인지를 나타냅니다.
+- 데이터는 다음과 같이 id, document, label 세 개의 열로 이루어져있다.
+- id는 리뷰의 고유한 key 값이고, document는 리뷰의 내용, label은 긍정(0)인지 부정(1)인지를 나타냅니다.
 
 ![](https://lh4.googleusercontent.com/8Llw4q-RwHCUPAuCTTT1jB1jvy50BY6zzqnhb1XIvQ_B5bSqqeED81OZ2wpAKLaNdIOBdYz0zqhpgsdodbf1-r4-gJHUnYDKRNMUJwt4G3F7qhqW4DLJxHZ_3FwqNKybaXNvQ0jz)
 
