@@ -1,8 +1,8 @@
 # Relay 2 - A : 대화 패턴 긍정도 분석
 
 ## dataset
-
-[네이버 영화 리뷰 데이터]([https://github.com/e9t/nsmc/](https://github.com/e9t/nsmc/))
+---
+[네이버 영화 리뷰 데이터](https://github.com/e9t/nsmc/)
 
 ![](https://lh4.googleusercontent.com/MlW1Tt2PLMIBDRTSEkRoWS1jgJwrvdzHSxD6Um7n9eF3eTtobmv2hdds0YjhH0EhATsTYrnufSYrdtZFTta4mn0uazNdu8bPv1kB4u4iWNI3q9KB5R_FvdBLRDZuY7EYv2s3t-vM)
 
@@ -31,7 +31,7 @@
     
 
 ## 각 함수들에 대한 입출력
-
+---
 ####   `read_data(filename)`
 -   입력
 	```
@@ -50,23 +50,23 @@
 
 #### `tokenize(doc)`
    -   데이터에 형태소 분석을 통해서 품사를 태깅해주는 작업
-```python
-OUTPUT:
+		```python
+		OUTPUT:
 
-[['아/Exclamation',
+		[['아/Exclamation',
 
-'사람/Noun',
+		'사람/Noun',
 
-'../Punctuation',
+		'../Punctuation',
 
-'진짜/Noun',
+		'진짜/Noun',
 
-'짜증나다/Adjective',
+		'짜증나다/Adjective',
 
-'목소리/Noun'],
+		'목소리/Noun'],
 
-'0']
-```
+		'0']
+		```
 
 #### `term_frequency(doc)`
 
@@ -94,7 +94,7 @@ OUTPUT:
 - 출력 : 사람의 이름(혹은 nickname)이 key이고, 해당 사람이 친 채팅에 대한 점수들의 평균값이 value인 dictionary가 반환된다.
 
 ## 정리
-
+---
 
 [네이버 영화 리뷰 데이터](https://github.com/e9t/nsmc/)
 
