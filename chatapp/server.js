@@ -34,16 +34,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 const botName = 'ChatCord Bot';
 
 // Run when client connects
+//image도 같이 받아야함.
 io.on('connection', socket => {
-  socket.on('joinRoom', ({ username, gender }) => {
-    const user = userJoin(socket.id, username, gender, 'LOBY' );   
+  socket.on('joinRoom', ({ username, gender, image }) => {
+    console.log(username + " " + image);
+    const user = userJoin(socket.id, username, gender, 'LOBY');
+
     UserDB.insert(gender, username);
     console.log(user)
     socket.join(user.room);
-    
+
     // Welcome current user
     socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
-    
+
     // Broadcast when a user connects
     socket.broadcast
       .to(user.room)
@@ -60,39 +63,39 @@ io.on('connection', socket => {
   });
 
   idx = 2
-  socket.on('matchRoom', ({username}) => {
-    const user = getCurrentUserByName(username);
+  socket.on('matchRoom', ({ username }) => {
+    const user = getCurrentUserByName(username);   ///////////////////ID로 찾아야되나??
     user.id = socket.id;
-    
-    
-    if(user.gender === "man") {
+
+
+    if (user.gender === "man") {
       //여자큐가 비어있다면 남자큐에 자신을  넣고 빈 방 생성
-      if(WomenQueue.length === 0) {
+      if (WomenQueue.length === 0) {
         user.room = user.username;
         MenQueue.push(user.room);
         socket.join(user.room);
-   
+
 
       } else {  //큐가 비어있지 않다면 여자큐 poll, 그 방으로 join
-          console.log(WomenQueue);
-          user.room = WomenQueue.shift();
-          socket.join(user.room);
+        console.log(WomenQueue);
+        user.room = WomenQueue.shift();
+        socket.join(user.room);
       }
-    } else if(user.gender === "woman"){
-        //남자큐가 비어있다면 여자큐에 자신을 넣고 빈 방 생성
-        if(MenQueue.length == 0) {
-          user.room = user.username;
-          WomenQueue.push(user.room);
-          socket.join(user.room);
+    } else if (user.gender === "woman") {
+      //남자큐가 비어있다면 여자큐에 자신을 넣고 빈 방 생성
+      if (MenQueue.length == 0) {
+        user.room = user.username;
+        WomenQueue.push(user.room);
+        socket.join(user.room);
 
-        } else { //큐가 비어있지 않다면 남자큐 poll, 그 방으로 join
-          console.log(MenQueue);
-          user.room = MenQueue.shift()
-          socket.join(user.room);
-        }
-
+      } else { //큐가 비어있지 않다면 남자큐 poll, 그 방으로 join
+        console.log(MenQueue);
+        user.room = MenQueue.shift()
+        socket.join(user.room);
       }
-    
+
+    }
+
     /* 
     if (user.gender === "man") {
       user.room = "1"
@@ -104,7 +107,7 @@ io.on('connection', socket => {
     socket.join(user.room);
     */
 
-   console.log(user, username);
+    console.log(user, username);
 
     // Welcome current user
     socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));

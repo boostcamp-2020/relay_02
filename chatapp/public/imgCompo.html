@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+	</head>
+	<body>
+		<div class='preview'>
+			<p>프로필 사진을 등록해 주세요</p>
+			<img class='loadedImg' >
+		</div>
+		<div class='upload'>
+			<input type="file" id='img_upload' style="width:220px" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)">
+		</div>
+		
+		
+
+	<script>
+
+        function handleFiles(files){
+            file = files[0]
+            console.log(file)
+            const img = document.createElement("img");
+            img.classList.add("obj");
+            img.file = file;
+            preview.appendChild(img); // "preview"가 결과를 보여줄 div 출력이라 가정.
+            
+            const reader = new FileReader();
+            reader.onload = (function(aImg) { 
+                return function(e) { aImg.src = e.target.result; }; 
+            })(img);
+			reader.readAsDataURL(file);
+			const objectURL = window.URL.createObjectURL(file);
+			console.log(objectURL)
+
+		}
+
+
+
+
+        
+		const input = document.querySelector('input');
+		const preview = document.querySelector('.preview');
+		// input.addEventListener('onchange', updateImgDisplay(input));
+
+	</script>
+	</body>
+</html>

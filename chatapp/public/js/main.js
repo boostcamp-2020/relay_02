@@ -5,14 +5,15 @@ const userList = document.getElementById('users');
 
 
 // Get username and room from URL
-const { username, gender ,room } = Qs.parse(location.search, {
+// const { username, gender, user_image ,room } = Qs.parse(location.search, {
+const { username, gender, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
 
 
 if (!username) {
   // redirect to login
-  
+
 }
 
 const socket = io();
@@ -20,13 +21,14 @@ const socket = io();
 // Join chatroom
 console.log(location.pathname)
 console.log("match!");
-if (location.pathname === "/Match.html"){
+if (location.pathname === "/Match.html") {
   console.log("match!");
   socket.emit('matchRoom', { username });
 }
 else {
   const userNameInput = document.getElementById('username');
   userNameInput.value = username;
+  // socket.emit('joinRoom', { username, gender, user_image, room });
   socket.emit('joinRoom', { username, gender, room });
 };
 
@@ -78,6 +80,44 @@ function outputRoomName(room) {
 
 // Add users to DOM
 function outputUsers(users) {
+  /*
+  var badgeURL = "";
+  switch (users.animal_tyle) {
+    case "bear":
+      badgeURL = `<img src="https://i.ibb.co/6bPt8gC/bear.png" alt="bear" border="0"></img>`;
+      break;
+    case "cat":
+      badgeURL = `<img src="https://i.ibb.co/x1cPfWZ/cat.png" alt="cat" border="0"></img>`;
+    break;
+  case "catfish":
+    badgeURL = `<img src="https://i.ibb.co/6vKYfdM/catfish.png" alt="catfish" border="0"></img>`;
+    break;
+  case "chipmunk":
+    badgeURL = `<img src="https://i.ibb.co/RQTNDkC/chipmunk.png" alt="chipmunk" border="0"></img>`;
+    break;
+  case "dinosaur":
+    badgeURL = `<img src="https://i.ibb.co/bHZtQs5/dinosaur.png" alt="dinosaur" border="0"></img>`;
+    break;
+  case "dog":
+    badgeURL = `<img src="https://i.ibb.co/9hD0cFy/dog.png" alt="dog" border="0"></img>`;
+    break;
+  case "fox":
+    badgeURL = `<img src="https://i.ibb.co/m01JXsS/fox.png" alt="fox" border="0"></img>`;
+    break;
+  case "goldfish":
+    badgeURL = `<img src="https://i.ibb.co/GJ0DD1n/goldfish.png" alt="goldfish" border="0"></img>`;
+    break;
+  case "rabbit":
+    badgeURL = `<img src="https://i.ibb.co/m487pXd/rabbit.png" alt="rabbit" border="0"></img>`;
+    break;
+  case "tiger":
+    badgeURL = `<img src="https://i.ibb.co/dpYXtbW/tiger.png" alt="tiger" border="0"></img>`;
+    break;
+}
+  */
+  //userList.innerHTML = `
+  // ${users.map(user => `<li><a href="#"><img src=${user.user_image} ${badgeURL} />${user.username}/a></li>`).join('')}
+  //`;
   userList.innerHTML = `
     ${users.map(user => `<li>${user.username}</li>`).join('')}
   `;

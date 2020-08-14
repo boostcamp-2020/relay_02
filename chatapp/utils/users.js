@@ -5,7 +5,7 @@ function userJoin(id, username, gender, room) {
   const user = { id, username, gender, room };
 
   users.push(user);
-  
+
   return user;
 }
 
@@ -14,6 +14,8 @@ function getCurrentUser(id) {
   return users.find(user => user.id === id);
 }
 
+
+//////////////////////////////////////////////////// 이름이 같으면..?
 function getCurrentUserByName(username) {
   return users.find(user => user.username === username);
 }
