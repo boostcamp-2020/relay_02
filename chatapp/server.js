@@ -36,7 +36,7 @@ const botName = 'ChatCord Bot';
 // Run when client connects
 //image도 같이 받아야함.
 io.on('connection', socket => {
-  socket.on('joinRoom', ({ username, gender, image }) => {
+  socket.on('joinRoom', async ({ username, gender, image }) => {
     const imageTest = {
       fieldname: 'imgFile',
       originalname: '스크린샷 2020-08-03 오후 11.45.09.png',
@@ -47,10 +47,9 @@ io.on('connection', socket => {
       path: 'image/75c44557b9d3f0508d6f518806bf61ed',
       size: 237275
     };
-    console.log(username + " " + imageTest);
-    const user = userJoin(socket.id, username, gender, imageTest);
-
-    UserDB.insert(gender, username, imageTest);
+    const user = userJoin(socket.id, username, gender, imageTest, "LOVY");
+    animal_type = await UserDB.insert(gender, username, imageTest);
+    user.animal_type = animal_type;
     console.log(user)
     socket.join(user.room);
 
