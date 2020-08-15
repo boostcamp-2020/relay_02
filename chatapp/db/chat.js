@@ -130,12 +130,28 @@ const User = class {
     deleteTable(){
         db.run("DROP TABLE user");
     }
+    /*
     insert(gender, nickname, user_image) {
         const stmt = db.prepare(
           "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,null)"
         );
         stmt.run(gender, nickname, user_image);
         stmt.finalize();
+    }*/
+    insert(gender, nickname, image) {
+        return new Promise((resolve, rejectes) => {
+            const animal_type = 2; // 이미지를 AI를 통해 type을 받아옴 ()
+            if(animal_type == 2){
+                resolve(animal_type);
+            }else rejectes(1);
+        }).then(result=>{
+            const stmt = db.prepare(
+                "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,?)"
+            );
+            stmt.run(gender, nickname, image, result);
+            stmt.finalize();
+            return result;
+        });
     }
     updateImage(user_id, user_image) {
         const stmt = db.prepare(
