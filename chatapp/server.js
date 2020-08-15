@@ -38,7 +38,7 @@ const botName = 'ChatCord Bot';
 io.on('connection', socket => {
   socket.on('joinRoom', ({ username, gender, image }) => {
     console.log(username + " " + image);
-    const user = userJoin(socket.id, username, gender, 'LOBY');
+    const user = userJoin(socket.id, username, gender, image);
 
     UserDB.insert(gender, username);
     console.log(user)

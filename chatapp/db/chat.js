@@ -123,20 +123,28 @@ const User = class {
         this.createUserTable();
     }
     createUserTable() {
-        db.run("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender TEXT, nickname TEXT)");
+        db.run("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender varchar(20), nickname varhchar(20)\n\
+        user_image text, animal_type varchar(20))");
     }
-    insert(gender, nickname) {
+    insert(gender, nickname, user_image) {
         const stmt = db.prepare(
-          "INSERT into user(gender, nickname) values(?,?)"
+          "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,null)"
         );
-        stmt.run(gender, nickname);
+        stmt.run(gender, nickname, user_image);
         stmt.finalize();
     }
-    update(user_id, gender, nickname) {
+    updateImage(user_id, user_image) {
         const stmt = db.prepare(
-            "UPDATE user SET gender=?, nickname=? WHERE user_id=?"
+            "UPDATE user SET user_image=? WHERE user_id=?"
         );
-        stmt.run(gender, nickname, user_id);
+        stmt.run(user_image, user_id);
+        stmt.finalize();
+    }
+    updateAnimalType(user_id, animal_type) {
+        const stmt = db.prepare(
+            "UPDATE user SET animal_type=? WHERE user_id=?"
+        );
+        stmt.run(animal_type, user_id);
         stmt.finalize();
     }
     deleteById = (user_id) => {
