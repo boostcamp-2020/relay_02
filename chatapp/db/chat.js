@@ -38,6 +38,7 @@ const ChattingLog = class {
             db.run(query);
         })
     }
+    
     // CREATE
     insert = (user_id, message) => {
         const query = "INSERT into log (user_id, timestamp, message) values(?,?,?)";
@@ -123,8 +124,11 @@ const User = class {
         this.createUserTable();
     }
     createUserTable() {
-        db.run("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender varchar(20), nickname varhchar(20)\n\
+        db.run("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender varchar(20), nickname varhchar(20),\n\
         user_image text, animal_type varchar(20))");
+    }
+    deleteTable(){
+        db.run("DROP TABLE user");
     }
     insert(gender, nickname, user_image) {
         const stmt = db.prepare(
@@ -157,6 +161,12 @@ const User = class {
     // READ 1
     findByUserId = async (user_id) => {
         let query = `SELECT * FROM user WHERE user_id=${user_id}`;
+        return await _createPromise(query);;
+    }
+
+    // READ Image
+    findByUserId = async (user_id) => {
+        let query = `SELECT user_image FROM user WHERE user_id=${user_id}`;
         return await _createPromise(query);;
     }
 
