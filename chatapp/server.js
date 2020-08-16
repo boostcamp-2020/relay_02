@@ -31,28 +31,51 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const botName = "ChatCord Bot";
 
+// ------- 김혜지 추가부분 --------------
+/**
+ *
+ */
+app.use(express.json())
+var multer = require('multer'); // express에 multer모듈 적용 (for 파일업로드)
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'image/') // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname) // cb 콜백함수를 통해 전송된 파일 이름 설정
+  }
+})
+var upload = multer({ storage: storage });
+
+app.post('/joinRoom', upload.single('img_upload'), (req, res) => {
+  // console.log(req.body) // [Object: null prototype] { username: 's', gender: 'man' }
+  // console.log(req.file)
+  // console.log(req.file.path)
+  const user_image = req.file.path
+  res.redirect(`/chat.html?username=${req.body.username}&gender=${req.body.gender}&user_image=${user_image}&animal_type=${req.body.animal_type}`)
+})
+
 // Run when client connects
-//image도 같이 받아야함.
-idx = 0; //임시 사용 나중에 삭제
+// image도 같이 받아야함.
+idx = 0; //임시 사용 나중에);삭제
 io.on("connection", (socket) => {
-  socket.emit("getSocketID", { socket_id: socket.id }); // id기반으로 user 탐색하기 위해 id전달
-  socket.on("joinRoom", ({ username, gender, image, animal_type }) => {
-    const imageTest = {
-      fieldname: "imgFile",
-      originalname: "스크린샷 2020-08-03 오후 11.45.09.png",
-      encoding: "7bit",
-      mimetype: "image/png",
-      destination: "image/",
-      filename: "75c44557b9d3f0508d6f518806bf61ed",
-      path: "image/75c44557b9d3f0508d6f518806bf61ed",
-      size: 237275,
-    };
-    console.log(image + " " + animal_type); // 제대로 들어왔는지 확인!
-    const user = userJoin(socket.id, username, gender, imageTest, animal_type, "LOBY");
-    UserDB.insert(gender, username, imageTest, animal_type);
+  socket.emit("getSocketID", { socket_id: socket.id }); // socketid기반으로 user 탐색하기 위해 id전달
+  socket.on("joinRoom", ({ username, gender, animal_type, user_image_path }) => { ///user_image(이미지 경로)를 user 오브젝트에 저장해야함
+    // const imageTest = {
+    //   fieldname: "imgFile",
+    //   originalname: "테스트용 임시 이미지파일.png",
+    //   encoding: "7bit",
+    //   mimetype: "image/png",
+    //   destination: "image/",
+    //   filename: "75c44557b9d3f0508d6f518806bf61ed",
+    //   path: "image/75c44557b9d3f0508d6f518806bf61ed",
+    //   size: 237275,
+    // };
+    console.log(user_image_path + " " + animal_type); // 제대로 들어왔는지 확인!
+    const user = userJoin(socket.id, username, gender, user_image_path, animal_type, "LOBY");
+    UserDB.insert(gender, username, user_image_path, animal_type);
 
     // animal_type test (테스트하고 지워야함)
-    user.animal_type = ["bear", "dog", "cat", "catfish", "chipmunk", "tiger"][idx++ % 6];
 
     console.log(user);
     socket.join(user.room);
@@ -75,8 +98,10 @@ io.on("connection", (socket) => {
     });
   });
 
+
   socket.on("matchRoom", ({ username, pre_id }) => {
-    const user = getCurrentUser(pre_id); ///////////////////ID로 찾아야되나??
+    //chat.html에서 생성된 socket.id를 이용해서 사용
+    const user = getCurrentUser(pre_id);
     user.id = socket.id;
 
     if (user.gender === "man") {
@@ -104,17 +129,6 @@ io.on("connection", (socket) => {
         socket.join(user.room);
       }
     }
-
-    /*
-    if (user.gender === "man") {
-      user.room = "1"
-      console.log("room change!", user)
-    }
-    else user.room = "2"
-
-    console.log(user)
-    socket.join(user.room);
-    */
 
     console.log(user, username);
 
@@ -165,8 +179,11 @@ io.on("connection", (socket) => {
       });
     }
   });
+
 });
+
 
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

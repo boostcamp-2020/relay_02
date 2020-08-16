@@ -4,8 +4,8 @@ const roomName = document.getElementById("room-name");
 const userList = document.getElementById("users");
 
 // Get username and room from URL
-// const { username, gender, user_image ,room } = Qs.parse(location.search, {
-const { username, gender, room, pre_id } = Qs.parse(location.search, {
+const { username, gender, user_image_path, room, pre_id, animal_type } = Qs.parse(location.search, {
+  // const { username, gender, room, pre_id } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
@@ -28,8 +28,8 @@ if (location.pathname === "/Match.html") {
     const userSocketID = document.getElementById("socket_id");
     userSocketID.value = socket_id;
   });
-  // socket.emit('joinRoom', { username, gender, user_image, room });
-  socket.emit("joinRoom", { username, gender, room });
+  socket.emit('joinRoom', { username, gender, user_image_path, animal_type, room });
+  // socket.emit("joinRoom", { username, gender, room });
 }
 
 // Get room and users
@@ -84,34 +84,34 @@ function outputUsers(users) {
   userList.innerHTML =
     users.map((user) => {
       switch (user.animal_type) {
-        case "bear":
+        case "곰상":
           badgeURL = `<img src="https://i.ibb.co/6bPt8gC/bear.png" alt="bear" height="20" width="20" border="0"></img>`;
           break;
-        case "cat":
+        case "고양이상":
           badgeURL = `<img src="https://i.ibb.co/x1cPfWZ/cat.png" alt="cat" height="20" width="20" border="0"></img>`;
           break;
-        case "catfish":
+        case "메기상":
           badgeURL = `<img src="https://i.ibb.co/6vKYfdM/catfish.png" alt="catfish" height="20" width="20" border="0"></img>`;
           break;
-        case "chipmunk":
+        case "다람쥐상":
           badgeURL = `<img src="https://i.ibb.co/RQTNDkC/chipmunk.png" alt="chipmunk" height="20" width="20" border="0"></img>`;
           break;
-        case "dinosaur":
+        case "공룡상":
           badgeURL = `<img src="https://i.ibb.co/bHZtQs5/dinosaur.png" alt="dinosaur" height="20" width="20" border="0"></img>`;
           break;
-        case "dog":
+        case "강아지상":
           badgeURL = `<img src="https://i.ibb.co/9hD0cFy/dog.png" alt="dog" height="20" width="20" border="0"></img>`;
           break;
-        case "fox":
+        case "여우상":
           badgeURL = `<img src="https://i.ibb.co/m01JXsS/fox.png" alt="fox" height="20" width="20" border="0"></img>`;
           break;
-        case "goldfish":
+        case "금붕어상":
           badgeURL = `<img src="https://i.ibb.co/GJ0DD1n/goldfish.png" alt="goldfish" height="20" width="20" border="0"></img>`;
           break;
-        case "rabbit":
+        case "토끼상":
           badgeURL = `<img src="https://i.ibb.co/m487pXd/rabbit.png" alt="rabbit" height="20" width="20" border="0"></img>`;
           break;
-        case "tiger":
+        case "호랑이상":
           badgeURL = `<img src="https://i.ibb.co/dpYXtbW/tiger.png" alt="tiger" height="20" width="20" border="0"></img>`;
           break;
       }

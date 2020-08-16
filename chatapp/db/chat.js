@@ -138,18 +138,18 @@ const User = class {
         stmt.run(gender, nickname, user_image);
         stmt.finalize();
     }*/
-    insert(gender, nickname, image, animal_type) {
+    insert(gender, nickname, user_image_path, animal_type) {
         const stmt = db.prepare(
             "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,?)"
         );
-        stmt.run(gender, nickname, image, animal_type);
+        stmt.run(gender, nickname, user_image_path, animal_type);
         stmt.finalize();
     }
-    updateImage(user_id, user_image) {
+    updateImage(user_id, user_image_path) {
         const stmt = db.prepare(
             "UPDATE user SET user_image=? WHERE user_id=?"
         );
-        stmt.run(user_image, user_id);
+        stmt.run(user_image_path, user_id);
         stmt.finalize();
     }
     updateAnimalType(user_id, animal_type) {

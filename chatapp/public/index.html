@@ -20,8 +20,8 @@
 			margin-top: 10px;
 			display: block;
 			overflow: hidden;
-			height: 100px; 
-			width: 100px; 
+			height: 100px;
+			width: 100px;
 			}
 		.obj{
 			display: block;
@@ -35,22 +35,23 @@
 	<body>
 		<div class="join-container">
 			<header class="join-header">
-				<h1><i class="fas fa-smile"></i>Sky Love</h1>
-			</header>
+  				<h1><i class="fas fa-smile"></i>Sky Love</h1>
+		  	</header>
 			<main class="join-main">
-				<form action="chat.html">
-					<div class="form-control">
-						<label for="username">Username</label>
-						<input
-							type="text"
-							name="username"
+		  		<!-- <form action="chat.html"> -->
+		  		<form action="/joinRoom" id="join-form" method="post" enctype="multipart/form-data">
+				  	<div class="form-control">
+		  				<label for="username">Username</label>
+  						<input
+  							type="text"
+  							name="username"
 							id="username"
 							placeholder="Enter username..."
 							required
-						/>
+		  				/>
 					</div>
 					<div class="form-control">
-						<label for="room">Your Gender</label>
+      					<label for="room">Your Gender</label>
 						<select name="gender" id="room">
 							<option value="man">Man</option>
 							<option value="woman">Woman</option>
@@ -58,54 +59,60 @@
 					</div>
 					<div class="form-control" style="min-height: 200px;">
 						<label for="ProfileImg">Profile Image</label>
-						
 						<div class='upload'>
-							<input type="file" id='img_upload' style="width:220px" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)" required>
+							<input type="file" name="img_upload" id='img_upload' style="width:220px" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)" required>
 						</div>
 						<div class='preview'>
 							<img class='obj' src="./assets/icons8-user-100.png">
 						</div>
 					</div>
+					<div class="form-control">
+						<input type="hidden" name="animal_type" id='animal_type' >
+				  </div>
 
 					<button type="submit" class="btn" >Join Chat</button>
 				</form>
 			</main>
 		</div>
-  
+
   <script src="js/animal-type.js"></script>
-	<script> 
+	<script>
 		// https://developer.mozilla.org/ko/docs/Web/API/File/Using_files_from_web_applications
 		function handleFiles(files){
 			file = files[0]
 			console.log(file)
 			const img = document.querySelector('img')
-      img.file = file;
-      
+	  img.file = file;
+	  console.log(img)
+
       const pred = async () => {
-        const animal = await predictImage(img);
-        console.log(animal);
+		const animal = await predictImage(img);
+		animal_type.value = animal
+		console.log(animal);
+		console.log(animal_type.value)
       }
 
       // 동물상 예측 시작
       pred();
 
 			const reader = new FileReader();
-			reader.onload = (function(aImg) { 
-				return function(e) { aImg.src = e.target.result; }; 
+			reader.onload = (function(aImg) {
+				return function(e) { aImg.src = e.target.result; };
 			})(img);
 			reader.readAsDataURL(file);
 			const objectURL = window.URL.createObjectURL(file);
-			
+
       console.log(objectURL)
-      
+
 			// 등록된 이미지 = file
-			
+
 
 		}
 		const input = document.querySelector('input');
 		const preview = document.querySelector('.preview');
 		const notice = document.querySelector('.notice');
 		const img = document.querySelector('img')
+		const animal_type = document.getElementById('animal_type')
 	</script>
 	</body>
 
