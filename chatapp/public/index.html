@@ -60,7 +60,7 @@
 						<img class='obj' src="./assets/icons8-user-100.png">
 					</div>
 					<div>
-						<label id="loading" style="display:none; color:white"> 동물상 분석 중이에요! 이 메세지가 없어지면 아래 버튼을 클릭해주세요 :)</label>
+						<label id="loading" style="display:none; color:white; margin-top:'5px' "> 동물상 분석 중이에요! 잠시만 기다려주세요 👀</label>
 					</div>
 				</div>
 				<div class="form-control">
@@ -85,7 +85,7 @@
 				animal_type.value = animal
 				btn.disabled = false;
 				// loading.style.display = "none"
-				loading.textContent = `당신은 ${animal}이네요! :)`
+				loading.innerText = `당신은 ${animal}이네요! 🙂`
 			}
 
 			// 동물상 예측 시작
