@@ -8,18 +8,18 @@ let model, animalTypeContainer, labelContainer, maxPredictions;
 
 // Load the image model and setup the webcam
 async function init() {
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
+  const modelURL = URL + "model.json";
+  const metadataURL = URL + "metadata.json";
 
-    // load the model and metadata
-    // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-    // or files from your local hard drive
-    // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
+  // load the model and metadata
+  // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+  // or files from your local hard drive
+  // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+  model = await tmImage.load(modelURL, metadataURL);
+  maxPredictions = model.getTotalClasses();
 
-    labelContainer = document.getElementById("label-container");
-    animalTypeContainer = document.getElementById("animal-type-container");
+  labelContainer = document.getElementById("label-container");
+  animalTypeContainer = document.getElementById("animal-type-container");
 }
 
 async function predict(inputImage) {
@@ -32,17 +32,29 @@ async function predict(inputImage) {
   let maxProbability = 0;
   let bestPrediction = undefined;
   for (let i = 0; i < maxPredictions; i++) {
-      if(prediction[i].probability > maxProbability) {
-        maxProbability = prediction[i].probability;
-        bestPrediction = prediction[i].className;
-      }
+    if (prediction[i].probability > maxProbability) {
+      maxProbability = prediction[i].probability;
+      bestPrediction = prediction[i].className;
+    }
   }
-  
+
   return bestPrediction;
 }
 
+function waitForModel() {
+  if (typeof model !== "undefined") {
+    return;
+  }
+  else {
+    console.log("waiting for tensorflow model initialization...");
+    setTimeout(waitForModel, 250);
+  }
+}
+
+init();
+
 async function predictImage(inputImage) {
-  await init();
+  waitForModel();
   const prediction = await predict(inputImage);
   return prediction;
 }
