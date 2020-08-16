@@ -1,5 +1,6 @@
 chatapp/node_modules
-chatapp/public/image
+chatapp/public/image/*
+!chatapp/public/image/sample.jpg
 Vision/__pycache__
 Vision/downloads
 node_modules

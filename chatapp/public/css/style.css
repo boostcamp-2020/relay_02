@@ -187,3 +187,38 @@ a {
 		display: none;
 	}
 }
+
+/* Match , Index */
+.chatInfo{
+	display: flex;
+	margin-bottom: 5px;
+}
+.profile{
+	overflow: hidden;
+	display: inline-block;
+	max-width: 30px;
+	max-height: 30px;
+	margin-right: 10px;
+  }
+  .profileImg {
+	display: block;
+	border: 2px solid whitesmoke;
+	border-radius: 20px;
+	min-width: 100%;
+	min-height: 100%;
+	width: 30px;
+	height: 30px;
+  }
+  .name_time{
+	display:inline-flex;
+	align-items: center;
+  }
+  .username{
+	font-size: 16px;
+	margin-right: 5px;
+	color: #667aff;
+  }
+  .time{
+	font-size:10px;
+	color : grey;
+  }

@@ -18,10 +18,10 @@ python3 crawler.py // if using python3 keyword
   - 사용한 Python Package: https://github.com/hardikvasa/google-images-download
 
 ## Teachable Machine 모델 학습
-![남자 동물상](https://user-images.githubusercontent.com/32660326/90334286-90fb4280-e007-11ea-88de-2b0cfff20b4d.png)
+![남자 동물상](https://user-images.githubusercontent.com/32660326/90334286-90fb4280-e007-11ea-88de-2b0cfff20b4d.png)  
 남자 동물상 모델([테스트 URL](https://teachablemachine.withgoogle.com/models/KKFX8PVPV/))
 
-![여자 동물상](https://user-images.githubusercontent.com/32660326/90334288-935d9c80-e007-11ea-914a-4603033504e8.png)
+![여자 동물상](https://user-images.githubusercontent.com/32660326/90334288-935d9c80-e007-11ea-914a-4603033504e8.png)  
 여자 동물상 모델([테스트 URL](https://teachablemachine.withgoogle.com/models/WDy6sw0EE/))
 
 ## Teachable Machine 모델 사용
