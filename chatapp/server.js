@@ -33,9 +33,10 @@ const botName = "ChatCord Bot";
 
 // Run when client connects
 //image도 같이 받아야함.
+idx = 0; //임시 사용 나중에 삭제
 io.on("connection", (socket) => {
   socket.emit("getSocketID", { socket_id: socket.id }); // id기반으로 user 탐색하기 위해 id전달
-  socket.on("joinRoom", async ({ username, gender, image }) => {
+  socket.on("joinRoom", ({ username, gender, image, animal_type }) => {
     const imageTest = {
       fieldname: "imgFile",
       originalname: "스크린샷 2020-08-03 오후 11.45.09.png",
@@ -46,9 +47,13 @@ io.on("connection", (socket) => {
       path: "image/75c44557b9d3f0508d6f518806bf61ed",
       size: 237275,
     };
-    const user = userJoin(socket.id, username, gender, imageTest, "LOBY");
-    animal_type = await UserDB.insert(gender, username, imageTest);
-    user.animal_type = animal_type;
+    console.log(image + " " + animal_type); // 제대로 들어왔는지 확인!
+    const user = userJoin(socket.id, username, gender, imageTest, animal_type, "LOBY");
+    UserDB.insert(gender, username, imageTest, animal_type);
+
+    // animal_type test (테스트하고 지워야함)
+    user.animal_type = ["bear", "dog", "cat", "catfish", "chipmunk", "tiger"][idx++ % 6];
+
     console.log(user);
     socket.join(user.room);
 
@@ -70,7 +75,6 @@ io.on("connection", (socket) => {
     });
   });
 
-  idx = 2;
   socket.on("matchRoom", ({ username, pre_id }) => {
     const user = getCurrentUser(pre_id); ///////////////////ID로 찾아야되나??
     user.id = socket.id;

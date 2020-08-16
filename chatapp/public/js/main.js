@@ -78,47 +78,43 @@ function outputRoomName(room) {
   roomName.innerText = room;
 }
 
-// Add users to DOM
+// Add users to DOM  + 뱃지 추가(2020/08/16)
 function outputUsers(users) {
-  /*
   var badgeURL = "";
-  switch (users.animal_tyle) {
-    case "bear":
-      badgeURL = `<img src="https://i.ibb.co/6bPt8gC/bear.png" alt="bear" border="0"></img>`;
-      break;
-    case "cat":
-      badgeURL = `<img src="https://i.ibb.co/x1cPfWZ/cat.png" alt="cat" border="0"></img>`;
-    break;
-  case "catfish":
-    badgeURL = `<img src="https://i.ibb.co/6vKYfdM/catfish.png" alt="catfish" border="0"></img>`;
-    break;
-  case "chipmunk":
-    badgeURL = `<img src="https://i.ibb.co/RQTNDkC/chipmunk.png" alt="chipmunk" border="0"></img>`;
-    break;
-  case "dinosaur":
-    badgeURL = `<img src="https://i.ibb.co/bHZtQs5/dinosaur.png" alt="dinosaur" border="0"></img>`;
-    break;
-  case "dog":
-    badgeURL = `<img src="https://i.ibb.co/9hD0cFy/dog.png" alt="dog" border="0"></img>`;
-    break;
-  case "fox":
-    badgeURL = `<img src="https://i.ibb.co/m01JXsS/fox.png" alt="fox" border="0"></img>`;
-    break;
-  case "goldfish":
-    badgeURL = `<img src="https://i.ibb.co/GJ0DD1n/goldfish.png" alt="goldfish" border="0"></img>`;
-    break;
-  case "rabbit":
-    badgeURL = `<img src="https://i.ibb.co/m487pXd/rabbit.png" alt="rabbit" border="0"></img>`;
-    break;
-  case "tiger":
-    badgeURL = `<img src="https://i.ibb.co/dpYXtbW/tiger.png" alt="tiger" border="0"></img>`;
-    break;
-}
-  */
-  //userList.innerHTML = `
-  // ${users.map(user => `<li><a href="#"><img src=${user.user_image} ${badgeURL} />${user.username}/a></li>`).join('')}
-  //`;
-  userList.innerHTML = `
-    ${users.map((user) => `<li>${user.username}</li>`).join("")}
-  `;
+  userList.innerHTML =
+    users.map((user) => {
+      switch (user.animal_type) {
+        case "bear":
+          badgeURL = `<img src="https://i.ibb.co/6bPt8gC/bear.png" alt="bear" height="20" width="20" border="0"></img>`;
+          break;
+        case "cat":
+          badgeURL = `<img src="https://i.ibb.co/x1cPfWZ/cat.png" alt="cat" height="20" width="20" border="0"></img>`;
+          break;
+        case "catfish":
+          badgeURL = `<img src="https://i.ibb.co/6vKYfdM/catfish.png" alt="catfish" height="20" width="20" border="0"></img>`;
+          break;
+        case "chipmunk":
+          badgeURL = `<img src="https://i.ibb.co/RQTNDkC/chipmunk.png" alt="chipmunk" height="20" width="20" border="0"></img>`;
+          break;
+        case "dinosaur":
+          badgeURL = `<img src="https://i.ibb.co/bHZtQs5/dinosaur.png" alt="dinosaur" height="20" width="20" border="0"></img>`;
+          break;
+        case "dog":
+          badgeURL = `<img src="https://i.ibb.co/9hD0cFy/dog.png" alt="dog" height="20" width="20" border="0"></img>`;
+          break;
+        case "fox":
+          badgeURL = `<img src="https://i.ibb.co/m01JXsS/fox.png" alt="fox" height="20" width="20" border="0"></img>`;
+          break;
+        case "goldfish":
+          badgeURL = `<img src="https://i.ibb.co/GJ0DD1n/goldfish.png" alt="goldfish" height="20" width="20" border="0"></img>`;
+          break;
+        case "rabbit":
+          badgeURL = `<img src="https://i.ibb.co/m487pXd/rabbit.png" alt="rabbit" height="20" width="20" border="0"></img>`;
+          break;
+        case "tiger":
+          badgeURL = `<img src="https://i.ibb.co/dpYXtbW/tiger.png" alt="tiger" height="20" width="20" border="0"></img>`;
+          break;
+      }
+      return `<li> ${badgeURL} ${user.username}</li>`;
+    }).join('')
 }

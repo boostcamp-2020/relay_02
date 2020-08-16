@@ -21,15 +21,15 @@ const closeDatabase = () => {
 
 // READ 1, READ ALL 공통
 const _createPromise = async (query) => {
-    return await new Promise ((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
         db.all(query, (err, rows) => {
-            resolve (rows);
+            resolve(rows);
         });
     });
 };
 
 const ChattingLog = class {
-    constructor () {
+    constructor() {
         this.createLogTable();
     }
     createLogTable = () => {
@@ -38,7 +38,7 @@ const ChattingLog = class {
             db.run(query);
         })
     }
-    
+
     // CREATE
     insert = (user_id, message) => {
         const query = "INSERT into log (user_id, timestamp, message) values(?,?,?)";
@@ -47,7 +47,7 @@ const ChattingLog = class {
         stmt.run(user_id, date, message);
         stmt.finalize();
     }
-    
+
 
     // READ 1명의 전체 로그
     findByUserId = async (user_id) => {
@@ -65,9 +65,9 @@ const ChattingLog = class {
     getLogs = async () => {
         const query = `SELECT * FROM log WHERE user_id = '${user_id}'`
         const result = [];
-        const dd = await new Promise ((resolve, reject) => {
+        const dd = await new Promise((resolve, reject) => {
             db.each(query, (err, row) => {
-                resolve (row);
+                resolve(row);
                 console.log(row);
                 // result.push([row.user_id, row.message]);
             });
@@ -127,7 +127,7 @@ const User = class {
         db.run("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender varchar(20), nickname varhchar(20),\n\
         user_image text, animal_type varchar(20))");
     }
-    deleteTable(){
+    deleteTable() {
         db.run("DROP TABLE user");
     }
     /*
@@ -138,20 +138,12 @@ const User = class {
         stmt.run(gender, nickname, user_image);
         stmt.finalize();
     }*/
-    insert(gender, nickname, image) {
-        return new Promise((resolve, rejectes) => {
-            const animal_type = 2; // 이미지를 AI를 통해 type을 받아옴 ()
-            if(animal_type == 2){
-                resolve(animal_type);
-            }else rejectes(1);
-        }).then(result=>{
-            const stmt = db.prepare(
-                "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,?)"
-            );
-            stmt.run(gender, nickname, image, result);
-            stmt.finalize();
-            return result;
-        });
+    insert(gender, nickname, image, animal_type) {
+        const stmt = db.prepare(
+            "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,?)"
+        );
+        stmt.run(gender, nickname, image, animal_type);
+        stmt.finalize();
     }
     updateImage(user_id, user_image) {
         const stmt = db.prepare(
@@ -193,4 +185,4 @@ const User = class {
     };
 }
 
-module.exports = { User:User, ChattingLog:ChattingLog, closeDatabase:closeDatabase };
+module.exports = { User: User, ChattingLog: ChattingLog, closeDatabase: closeDatabase };
