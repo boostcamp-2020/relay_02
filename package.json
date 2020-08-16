@@ -1,0 +1,19 @@
+{
+  "name": "relay_02",
+  "version": "1.0.0",
+  "description": "스카이러브 채팅 웹사이트입니다.   데모 URL: http://49.50.160.97:3000/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SPLee123/relay_02.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SPLee123/relay_02/issues"
+  },
+  "homepage": "https://github.com/SPLee123/relay_02#readme"
+}

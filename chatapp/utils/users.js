@@ -1,21 +1,17 @@
 const users = [];
 
 // Join user to chat
-function userJoin(id, username, gender, room) {
-  const user = { id, username, gender, room };
+function userJoin(id, username, gender, user_image_path, animal_type, room) {
+  const user = { id, username, gender, user_image_path, animal_type, room };
 
   users.push(user);
-  
+  console.log(users);
   return user;
 }
 
 // Get current user
 function getCurrentUser(id) {
   return users.find(user => user.id === id);
-}
-
-function getCurrentUserByName(username) {
-  return users.find(user => user.username === username);
 }
 
 // User leaves chat
@@ -29,13 +25,13 @@ function userLeave(id) {
 
 // Get room users
 function getRoomUsers(room) {
+
   return users.filter(user => user.room === room);
 }
 
 module.exports = {
   userJoin,
-  getCurrentUser,
   userLeave,
   getRoomUsers,
-  getCurrentUserByName
+  getCurrentUser
 };

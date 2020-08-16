@@ -21,15 +21,15 @@ const closeDatabase = () => {
 
 // READ 1, READ ALL 공통
 const _createPromise = async (query) => {
-    return await new Promise ((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
         db.all(query, (err, rows) => {
-            resolve (rows);
+            resolve(rows);
         });
     });
 };
 
 const ChattingLog = class {
-    constructor () {
+    constructor() {
         this.createLogTable();
     }
     createLogTable = () => {
@@ -38,6 +38,7 @@ const ChattingLog = class {
             db.run(query);
         })
     }
+
     // CREATE
     insert = (user_id, message) => {
         const query = "INSERT into log (user_id, timestamp, message) values(?,?,?)";
@@ -46,7 +47,7 @@ const ChattingLog = class {
         stmt.run(user_id, date, message);
         stmt.finalize();
     }
-    
+
 
     // READ 1명의 전체 로그
     findByUserId = async (user_id) => {
@@ -64,9 +65,9 @@ const ChattingLog = class {
     getLogs = async () => {
         const query = `SELECT * FROM log WHERE user_id = '${user_id}'`
         const result = [];
-        const dd = await new Promise ((resolve, reject) => {
+        const dd = await new Promise((resolve, reject) => {
             db.each(query, (err, row) => {
-                resolve (row);
+                resolve(row);
                 console.log(row);
                 // result.push([row.user_id, row.message]);
             });
@@ -123,20 +124,32 @@ const User = class {
         this.createUserTable();
     }
     createUserTable() {
-        db.run("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender TEXT, nickname TEXT)");
+        db.run("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender varchar(20), nickname varhchar(20),\n\
+        user_image text, animal_type varchar(20))");
     }
-    insert(gender, nickname) {
+    deleteTable() {
+        db.run("DROP TABLE user");
+    }
+
+    insert(gender, nickname, user_image_path, animal_type) {
         const stmt = db.prepare(
-          "INSERT into user(gender, nickname) values(?,?)"
+            "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,?)"
         );
-        stmt.run(gender, nickname);
+        stmt.run(gender, nickname, user_image_path, animal_type);
         stmt.finalize();
     }
-    update(user_id, gender, nickname) {
+    updateImage(user_id, user_image_path) {
         const stmt = db.prepare(
-            "UPDATE user SET gender=?, nickname=? WHERE user_id=?"
+            "UPDATE user SET user_image=? WHERE user_id=?"
         );
-        stmt.run(gender, nickname, user_id);
+        stmt.run(user_image_path, user_id);
+        stmt.finalize();
+    }
+    updateAnimalType(user_id, animal_type) {
+        const stmt = db.prepare(
+            "UPDATE user SET animal_type=? WHERE user_id=?"
+        );
+        stmt.run(animal_type, user_id);
         stmt.finalize();
     }
     deleteById = (user_id) => {
@@ -152,6 +165,12 @@ const User = class {
         return await _createPromise(query);;
     }
 
+    // READ Image
+    findByUserId = async (user_id) => {
+        let query = `SELECT user_image FROM user WHERE user_id=${user_id}`;
+        return await _createPromise(query);;
+    }
+
     // READ ALL
     findAll = async () => {
         const query = `SELECT * FROM user`
@@ -159,4 +178,4 @@ const User = class {
     };
 }
 
-module.exports = { User:User, ChattingLog:ChattingLog, closeDatabase:closeDatabase };
+module.exports = { User: User, ChattingLog: ChattingLog, closeDatabase: closeDatabase };
