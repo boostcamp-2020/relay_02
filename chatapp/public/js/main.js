@@ -65,7 +65,7 @@ function outputMessage(message) {
   const div = document.createElement("div");
   div.classList.add("message");
   if (message.user_image_path !== undefined) {
-    div.innerHTML = `<p class="meta"> <div class='profile'><img src="${message.user_image_path}" class='profileImg'></img></div> <div class='name_time'><span class='username'>${message.username}</span><span class='time'>${message.time}</span></div></p>
+    div.innerHTML = `<p class="meta"> <div class='chatInfo'><div class='profile'><img src="${message.user_image_path}" class='profileImg'></img></div> <div class='name_time'><span class='username'>${message.username}</span><span class='time'>${message.time}</span></div></div>
     <p class="text"> ${message.text} </p>`;
   } else {
     div.innerHTML = `<p class="meta">${message.username} <span class='time'>${message.time}</span></p>
