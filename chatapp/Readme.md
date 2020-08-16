@@ -17,7 +17,7 @@
 ## 설치 및 실행
 
 ```bash
-npm install # express moment socket.io sqlite3
+npm install # express moment socket.io sqlite3 multer
 
 npm run dev # start dev-server
 npm start # start server
