@@ -12,7 +12,9 @@
 		/>
 		<link rel="stylesheet" href="css/style.css" />
 		<link rel="import" href="imgCompo.html">
-		<title>Sky Love</title>
+    <title>Sky Love</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 	</head>
 	<style>
 		.preview{
@@ -62,8 +64,7 @@
 							<input type="file" id='img_upload' style="width:220px" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)">
 						</div>
 						<div class='preview'>
-							<img class='obj' src="./assets/icons8-user-100.png">
-							
+							<img class='obj' src="./assets/icons8-user-100.png">	
 						</div>
 					</div>
 
@@ -71,16 +72,24 @@
 				</form>
 			</main>
 		</div>
-	
+  
+  <script src="js/animal-type.js"></script>
 	<script> 
 		// https://developer.mozilla.org/ko/docs/Web/API/File/Using_files_from_web_applications
 		function handleFiles(files){
 			// input.addEventListener('onchange', updateImgDisplay(input));
 
 			file = files[0]
-			console.log(file)
+			console.log(file) 
 			const img = document.querySelector('img')
-			img.file = file;
+      img.file = file;
+      
+      const pred = async () => {
+        const animal = await predictImage(img);
+        console.log(animal);
+      }
+
+      pred();
 
 			const reader = new FileReader();
 			reader.onload = (function(aImg) { 
@@ -88,7 +97,11 @@
 			})(img);
 			reader.readAsDataURL(file);
 			const objectURL = window.URL.createObjectURL(file);
+			
 			console.log(objectURL)
+
+			// 등록된 이미지 = file
+			
 
 		}
 		const input = document.querySelector('input');
