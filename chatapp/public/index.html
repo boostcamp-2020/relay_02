@@ -14,6 +14,23 @@
 		<link rel="import" href="imgCompo.html">
 		<title>Sky Love</title>
 	</head>
+	<style>
+		.preview{
+			margin-top: 10px;
+			display: block;
+			overflow: hidden;
+			height: 100px; 
+			width: 100px; 
+			}
+		.obj{
+			display: block;
+			min-width: 100%;
+			min-height: 100%;
+			width: 100px;
+			border: 3px solid whitesmoke;
+			border-radius: 20px;
+		}
+	</style>
 	<body>
 		<div class="join-container">
 			<header class="join-header">
@@ -38,15 +55,47 @@
 							<option value="woman">Woman</option>
 						</select>
 					</div>
-					<div class="form-control">
+					<div class="form-control" style="min-height: 200px;">
 						<label for="ProfileImg">Profile Image</label>
-						<iframe id='imgInput' src="imgCompo.html" seamless></iframe>
+						
+						<div class='upload'>
+							<input type="file" id='img_upload' style="width:220px" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)">
+						</div>
+						<div class='preview'>
+							<img class='obj' src="./assets/icons8-user-100.png">
+							
+						</div>
 					</div>
+
 					<button type="submit" class="btn">Join Chat</button>
 				</form>
 			</main>
 		</div>
+	
+	<script> 
+		// https://developer.mozilla.org/ko/docs/Web/API/File/Using_files_from_web_applications
+		function handleFiles(files){
+			// input.addEventListener('onchange', updateImgDisplay(input));
 
+			file = files[0]
+			console.log(file)
+			const img = document.querySelector('img')
+			img.file = file;
+
+			const reader = new FileReader();
+			reader.onload = (function(aImg) { 
+				return function(e) { aImg.src = e.target.result; }; 
+			})(img);
+			reader.readAsDataURL(file);
+			const objectURL = window.URL.createObjectURL(file);
+			console.log(objectURL)
+
+		}
+		const input = document.querySelector('input');
+		const preview = document.querySelector('.preview');
+		const notice = document.querySelector('.notice');
+		const img = document.querySelector('img')
+	</script>
 	</body>
 
 </html>
