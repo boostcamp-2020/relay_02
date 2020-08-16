@@ -12,7 +12,7 @@
 ![chat](https://user-images.githubusercontent.com/53181778/90337134-792db980-e01b-11ea-9289-b3d4fb4ee103.png)
 <br>
 
-![match](https://user-images.githubusercontent.com/48251136/89639540-b510a280-d8e8-11ea-9d2f-2933ca1353e3.png)<br>
+![image](https://user-images.githubusercontent.com/53181778/90338585-a2ebde00-e025-11ea-9f08-dc3b806f8c60.png)<br>
 
 ## 설치 및 실행
 
