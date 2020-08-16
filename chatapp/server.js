@@ -8,7 +8,6 @@ const {
   getCurrentUser,
   userLeave,
   getRoomUsers,
-  getCurrentUserByName,
 } = require("./utils/users");
 const { User, ChattingLog, closeDatabase } = require("./db/chat");
 
@@ -31,55 +30,36 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const botName = "ChatCord Bot";
 
-// ------- 김혜지 추가부분 --------------
-/**
- *
- */
+// ------ user 정보 넘겨주고, 이미지 저장하는 부분 ---------
 app.use(express.json())
 var multer = require('multer'); // express에 multer모듈 적용 (for 파일업로드)
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'image/') // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
+    cb(null, 'public/image/') // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname) // cb 콜백함수를 통해 전송된 파일 이름 설정
   }
 })
 var upload = multer({ storage: storage });
-
-app.post('/joinRoom', upload.single('img_upload'), (req, res) => {
-  // console.log(req.body) // [Object: null prototype] { username: 's', gender: 'man' }
-  // console.log(req.file)
-  // console.log(req.file.path)
-  const user_image = req.file.path
-  res.redirect(`/chat.html?username=${req.body.username}&gender=${req.body.gender}&user_image=${user_image}&animal_type=${req.body.animal_type}`)
+app.post('/joinRoom', upload.single('user_image_path'), (req, res) => {
+  const user_image_path = req.file.path.substring(6);
+  res.redirect(`/chat.html?username=${req.body.username}&gender=${req.body.gender}&user_image_path=${user_image_path}&animal_type=${req.body.animal_type}`)
 })
+// -----------------------------------
 
 // Run when client connects
-// image도 같이 받아야함.
-idx = 0; //임시 사용 나중에);삭제
 io.on("connection", (socket) => {
-  socket.emit("getSocketID", { socket_id: socket.id }); // socketid기반으로 user 탐색하기 위해 id전달
-  socket.on("joinRoom", ({ username, gender, animal_type, user_image_path }) => { ///user_image(이미지 경로)를 user 오브젝트에 저장해야함
-    // const imageTest = {
-    //   fieldname: "imgFile",
-    //   originalname: "테스트용 임시 이미지파일.png",
-    //   encoding: "7bit",
-    //   mimetype: "image/png",
-    //   destination: "image/",
-    //   filename: "75c44557b9d3f0508d6f518806bf61ed",
-    //   path: "image/75c44557b9d3f0508d6f518806bf61ed",
-    //   size: 237275,
-    // };
-    console.log(user_image_path + " " + animal_type); // 제대로 들어왔는지 확인!
+
+  // socketid기반으로 user 탐색하기 위해 id전달
+  socket.emit("getSocketID", { socket_id: socket.id });
+
+
+  // LOBY 입장
+  socket.on("joinRoom", ({ username, gender, animal_type, user_image_path }) => {
     const user = userJoin(socket.id, username, gender, user_image_path, animal_type, "LOBY");
     UserDB.insert(gender, username, user_image_path, animal_type);
-
-    // animal_type test (테스트하고 지워야함)
-
-    console.log(user);
     socket.join(user.room);
-
     // Welcome current user
     socket.emit("message", formatMessage(botName, "Welcome to ChatCord!"));
 
@@ -102,6 +82,7 @@ io.on("connection", (socket) => {
   socket.on("matchRoom", ({ username, pre_id }) => {
     //chat.html에서 생성된 socket.id를 이용해서 사용
     const user = getCurrentUser(pre_id);
+    if (!user) return; //?
     user.id = socket.id;
 
     if (user.gender === "man") {
@@ -136,26 +117,22 @@ io.on("connection", (socket) => {
     socket.emit("message", formatMessage(botName, "Welcome to ChatCord!"));
 
     // Broadcast when a user connects
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        "message",
-        formatMessage(botName, `${user.username} has joined the chat`)
-      );
-
+    socket.broadcast.to(user.room).emit("message", formatMessage(botName, `${user.username} has joined the chat`));
     // Send users and room info
+
     io.to(user.room).emit("roomUsers", {
       room: user.room,
       users: getRoomUsers(user.room),
     });
   });
 
+
+
   // Listen for chatMessage
   socket.on("chatMessage", (msg) => {
     const user = getCurrentUser(socket.id);
-    // console.log(user.username, msg);
     logger.insert(user.username, msg); //* DB로 저장하는 로직이 필요
-    io.to(user.room).emit("message", formatMessage(user.username, msg));
+    io.to(user.room).emit("message", formatMessage(user.username, msg, user.user_image_path));
   });
 
   // Runs when client disconnects
@@ -181,7 +158,6 @@ io.on("connection", (socket) => {
   });
 
 });
-
 
 const PORT = process.env.PORT || 3000;
 

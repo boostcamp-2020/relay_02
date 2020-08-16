@@ -1,119 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-			integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-			crossorigin="anonymous"
-		/>
-		<link rel="stylesheet" href="css/style.css" />
-    <title>Sky Love</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
-	</head>
-	<style>
-		.preview{
-			margin-top: 10px;
-			display: block;
-			overflow: hidden;
-			height: 100px;
-			width: 100px;
-			}
-		.obj{
-			display: block;
-			min-width: 100%;
-			min-height: 100%;
-			width: 100px;
-			border: 3px solid whitesmoke;
-			border-radius: 20px;
-		}
-	</style>
-	<body>
-		<div class="join-container">
-			<header class="join-header">
-  				<h1><i class="fas fa-smile"></i>Sky Love</h1>
-		  	</header>
-			<main class="join-main">
-		  		<!-- <form action="chat.html"> -->
-		  		<form action="/joinRoom" id="join-form" method="post" enctype="multipart/form-data">
-				  	<div class="form-control">
-		  				<label for="username">Username</label>
-  						<input
-  							type="text"
-  							name="username"
-							id="username"
-							placeholder="Enter username..."
-							required
-		  				/>
-					</div>
-					<div class="form-control">
-      					<label for="room">Your Gender</label>
-						<select name="gender" id="room">
-							<option value="man">Man</option>
-							<option value="woman">Woman</option>
-						</select>
-					</div>
-					<div class="form-control" style="min-height: 200px;">
-						<label for="ProfileImg">Profile Image</label>
-						<div class='upload'>
-							<input type="file" name="img_upload" id='img_upload' style="width:220px" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)" required>
-						</div>
-						<div class='preview'>
-							<img class='obj' src="./assets/icons8-user-100.png">
-						</div>
-					</div>
-					<div class="form-control">
-						<input type="hidden" name="animal_type" id='animal_type' >
-				  </div>
 
-					<button type="submit" class="btn" >Join Chat</button>
-				</form>
-			</main>
-		</div>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+		integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="css/style.css" />
+	<title>Sky Love</title>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+</head>
+<style>
+	.preview {
+		margin-top: 10px;
+		display: block;
+		overflow: hidden;
+		height: 107px;
+		width: 107px;
+		border: 3px solid whitesmoke;
+		border-radius: 20px;
+	}
 
-  <script src="js/animal-type.js"></script>
+	.obj {
+		display: block;
+		min-width: 100%;
+		min-height: 100%;
+		width: 100px;
+	}
+</style>
+
+<body>
+	<div class="join-container">
+		<header class="join-header">
+			<h1><i class="fas fa-smile"></i>Sky Love</h1>
+		</header>
+		<main class="join-main">
+			<!-- <form action="chat.html"> -->
+			<form action="/joinRoom" id="join-form" method="post" enctype="multipart/form-data">
+				<div class="form-control">
+					<label for="username">Username</label>
+					<input type="text" name="username" id="username" placeholder="Enter username..." required />
+				</div>
+				<div class="form-control">
+					<label for="room">Your Gender</label>
+					<select name="gender" id="room">
+						<option value="man">Man</option>
+						<option value="woman">Woman</option>
+					</select>
+				</div>
+				<div class="form-control" style="min-height: 200px;">
+					<label for="ProfileImg">Profile Image</label>
+					<div class='upload'>
+						<input type="file" name="user_image_path" id='user_image_path' style="width:220px"
+							accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)" required>
+					</div>
+					<div class='preview'>
+						<img class='obj' src="./assets/icons8-user-100.png">
+					</div>
+					<div>
+						<label id="loading" style="display:none; color:white"> 동물상 분석 중이에요! 이 메세지가 없어지면 아래 버튼을 클릭해주세요 :)</label>
+					</div>
+				</div>
+				<div class="form-control">
+					<input type="hidden" name="animal_type" id='animal_type'>
+				</div>
+
+				<button type="submit" class="btn" id="btn">Join Chat</button>
+			</form>
+		</main>
+	</div>
+
+	<script src="js/animal-type.js"></script>
 	<script>
 		// https://developer.mozilla.org/ko/docs/Web/API/File/Using_files_from_web_applications
-		function handleFiles(files){
+		function handleFiles(files) {
 			file = files[0]
-			console.log(file)
 			const img = document.querySelector('img')
-	  img.file = file;
-	  console.log(img)
+			img.file = file;
 
-      const pred = async () => {
-		const animal = await predictImage(img);
-		animal_type.value = animal
-		console.log(animal);
-		console.log(animal_type.value)
-      }
+			const pred = async () => {
+				const animal = await predictImage(img, gender.value);
+				animal_type.value = animal
+				btn.disabled = false;
+				// loading.style.display = "none"
+				loading.textContent = `당신은 ${animal}이네요! :)`
+			}
 
-      // 동물상 예측 시작
-      pred();
+			// 동물상 예측 시작
+			btn.disabled = true;
+			loading.style.display = ""
+			pred();
 
 			const reader = new FileReader();
-			reader.onload = (function(aImg) {
-				return function(e) { aImg.src = e.target.result; };
+			reader.onload = (function (aImg) {
+				return function (e) { aImg.src = e.target.result; };
 			})(img);
 			reader.readAsDataURL(file);
 			const objectURL = window.URL.createObjectURL(file);
-
-      console.log(objectURL)
-
-			// 등록된 이미지 = file
-
-
+			// console.log(objectURL)
 		}
+
 		const input = document.querySelector('input');
 		const preview = document.querySelector('.preview');
 		const notice = document.querySelector('.notice');
 		const img = document.querySelector('img')
 		const animal_type = document.getElementById('animal_type')
+		const btn = document.getElementById('btn');
+		const gender = document.getElementById('room');
+		const loading = document.getElementById('loading');
 	</script>
-	</body>
+</body>
 
 </html>

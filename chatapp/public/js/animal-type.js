@@ -2,12 +2,14 @@
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
 // the link to your model provided by Teachable Machine export panel
-const URL = "https://teachablemachine.withgoogle.com/models/mCPUgT_SH/";
 
 let model, animalTypeContainer, labelContainer, maxPredictions;
 
 // Load the image model and setup the webcam
-async function init() {
+async function init(gender) {
+  let URL;
+  if (gender === 'man') URL = "https://teachablemachine.withgoogle.com/models/KKFX8PVPV/"
+  else URL = "https://teachablemachine.withgoogle.com/models/WDy6sw0EE/";
   const modelURL = URL + "model.json";
   const metadataURL = URL + "metadata.json";
 
@@ -41,20 +43,19 @@ async function predict(inputImage) {
   return bestPrediction;
 }
 
-function waitForModel() {
-  if (typeof model !== "undefined") {
-    return;
-  }
-  else {
-    console.log("waiting for tensorflow model initialization...");
-    setTimeout(waitForModel, 250);
-  }
-}
+// function waitForModel() {
+//   if (typeof model !== "undefined") {
+//     return;
+//   }
+//   else {
+//     console.log("waiting for tensorflow model initialization...");
+//     setTimeout(waitForModel, 250);
+//   }
+// }
 
-init();
 
-async function predictImage(inputImage) {
-  waitForModel();
+async function predictImage(inputImage, gender) {
+  await init(gender);
   const prediction = await predict(inputImage);
   return prediction;
 }

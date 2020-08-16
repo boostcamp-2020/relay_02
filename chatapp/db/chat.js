@@ -130,14 +130,7 @@ const User = class {
     deleteTable() {
         db.run("DROP TABLE user");
     }
-    /*
-    insert(gender, nickname, user_image) {
-        const stmt = db.prepare(
-          "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,null)"
-        );
-        stmt.run(gender, nickname, user_image);
-        stmt.finalize();
-    }*/
+
     insert(gender, nickname, user_image_path, animal_type) {
         const stmt = db.prepare(
             "INSERT into user(gender, nickname, user_image, animal_type) values(?,?,?,?)"
