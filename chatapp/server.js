@@ -18,6 +18,9 @@ const UserDB = new User();
 const MenQueue = [];
 const WomenQueue = [];
 
+// 매칭할 사람들에 대한 obj
+const MatcherArr = [];
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -58,7 +61,7 @@ io.on("connection", (socket) => {
   // LOBY 입장
   socket.on("joinRoom", ({ username, gender, animal_type, user_image_path }) => {
     const user = userJoin(socket.id, username, gender, user_image_path, animal_type, "LOBY");
-    UserDB.insert(gender, username, user_image_path, animal_type);
+    // UserDB.insert(gender, username, user_image_path, animal_type);
     socket.join(user.room);
     // Welcome current user
     socket.emit("message", formatMessage(botName, "Welcome to ChatCord!"));
@@ -79,38 +82,56 @@ io.on("connection", (socket) => {
   });
 
 
-  socket.on("matchRoom", ({ username, pre_id }) => {
+  socket.on("matchRoom", async ({ username, pre_id }) => {
     //chat.html에서 생성된 socket.id를 이용해서 사용
     const user = getCurrentUser(pre_id);
+    console.log(user)
+
     if (!user) return; //?
     user.id = socket.id;
 
-    if (user.gender === "man") {
-      //여자큐가 비어있다면 남자큐에 자신을  넣고 빈 방 생성
-      if (WomenQueue.length === 0) {
-        user.room = user.username;
-        MenQueue.push(user.room);
-        socket.join(user.room);
-      } else {
-        //큐가 비어있지 않다면 여자큐 poll, 그 방으로 join
-        console.log(WomenQueue);
-        user.room = WomenQueue.shift();
-        socket.join(user.room);
-      }
-    } else if (user.gender === "woman") {
-      //남자큐가 비어있다면 여자큐에 자신을 넣고 빈 방 생성
-      if (MenQueue.length == 0) {
-        user.room = user.username;
-        WomenQueue.push(user.room);
-        socket.join(user.room);
-      } else {
-        //큐가 비어있지 않다면 남자큐 poll, 그 방으로 join
-        console.log(MenQueue);
-        user.room = MenQueue.shift();
-        socket.join(user.room);
-      }
-    }
+    // 일단 큐에 있는 사람 중 같은 타입을 찾는다.
+    // 1. 현재 User, Type - target user -> DB
+    // 2. DB에서 username 같은 행을 select  -> type -> matchuser
+    const row = await UserDB.findByUserNicknameAsync(user.username);
+    console.log(`User ${user.username} Type`, row);
+    const userType = row["type"]
+    console.log(`User ${user.username} Type`, userType)
 
+    
+    const targetMatchers = 
+      (await Promise.all(MatcherArr.map(value => UserDB.findByUserNicknameAsync(value.username))))
+        .filter(value => value.type === userType);
+    
+    // const targetMatchers = await MatcherArr.filter(async (matcher) => {
+    //   const new_row = await UserDB.findByUserNicknameAsync(matcher.username);
+    //   console.log(`macther ${matcher.username}`, new_row);
+    //   return userType === new_row.type
+    // });
+
+    console.log(targetMatchers);
+
+    if (targetMatchers.length === 0) {
+      // 없으면 새로운 방을 만든다.
+      user.room = user.username;
+      console.log("새로운 방 생성!", user.username)
+      console.log(user.room, user)
+      MatcherArr.push(user);
+      socket.join(user.room); // user.room undefined
+    } else {
+      console.log("기존 방 매칭!", user.username)
+      const randomUser = targetMatchers.splice(Math.floor(Math.random() * targetMatchers.length), 1)[0] // get Random match user
+      for (const index in MatcherArr) {
+        if (MatcherArr[index].username === randomUser.username){
+          MatcherArr.splice(index, 1)
+          break;
+        }
+      }
+      console.log(randomUser);
+      user.room = randomUser.nickname //undefined
+      socket.join(user.room);
+    } 
+    
     console.log(user, username);
 
     // Welcome current user
@@ -124,6 +145,8 @@ io.on("connection", (socket) => {
       room: user.room,
       users: getRoomUsers(user.room),
     });
+
+
   });
 
 
