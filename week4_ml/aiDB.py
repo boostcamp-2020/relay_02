@@ -22,11 +22,11 @@ class AI_DB(object):
         self.conn.commit()
         self.conn.close()
 
-db = AI_DB("./chat_test.db")
+db = AI_DB("./chat2.db")
 print(db.read_all_data())
 print(db.read_1_data(1))
-db.updatePersonType(3, "G")
-print(db.read_all_data())
+#db.updatePersonType(3, "G")
+#print(db.read_all_data())
 del db
 #cur.execute("SELECT * FROM user")
 #cur.execute("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender varchar(20), nickname varchar(20), type varchar(1))")

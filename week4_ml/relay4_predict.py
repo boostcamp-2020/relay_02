@@ -23,5 +23,5 @@ loaded_model = pickle.load(open(filename, 'rb'))
 # prediction result
 result = loaded_model.predict(X_ts)
 
-print(sys.argv[1], result)
+print(sys.argv[1], result[0])
 
