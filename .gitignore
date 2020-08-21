@@ -4,3 +4,4 @@ chatapp/public/image/*
 Vision/__pycache__
 Vision/downloads
 node_modules
+*.db
