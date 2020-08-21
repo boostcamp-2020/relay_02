@@ -21,7 +21,7 @@ class AI_DB(object):
         print("DB class deleted.")
         self.conn.commit()
         self.conn.close()
-
+'''
 db = AI_DB("./chat2.db")
 print(db.read_all_data())
 print(db.read_1_data(1))
@@ -30,3 +30,4 @@ print(db.read_1_data(1))
 del db
 #cur.execute("SELECT * FROM user")
 #cur.execute("CREATE TABLE IF NOT EXISTS user(user_id integer primary key autoincrement, gender varchar(20), nickname varchar(20), type varchar(1))")
+'''
